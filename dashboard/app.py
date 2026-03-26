@@ -48,6 +48,38 @@ st.markdown("""
         border-bottom: 1px solid #2d3748;
         padding-bottom: 4px;
     }
+    /* Fix button text visibility in dark theme */
+    .stButton > button {
+        background-color: #1c1f26 !important;
+        color: #ffffff !important;
+        border: 1px solid #4a5568 !important;
+        border-radius: 6px !important;
+        font-size: 0.85rem !important;
+        padding: 6px 12px !important;
+        width: 100% !important;
+        text-align: left !important;
+        white-space: normal !important;
+        height: auto !important;
+        min-height: 38px !important;
+    }
+    .stButton > button:hover {
+        background-color: #2d3748 !important;
+        border-color: #718096 !important;
+        color: #ffffff !important;
+    }
+    /* Fix sidebar button (Refresh Data) */
+    [data-testid="stSidebar"] .stButton > button {
+        background-color: #2d3748 !important;
+        color: #ffffff !important;
+        border: 1px solid #4a5568 !important;
+        text-align: center !important;
+    }
+    /* Fix text input */
+    .stTextInput > div > div > input {
+        background-color: #1c1f26 !important;
+        color: #ffffff !important;
+        border: 1px solid #4a5568 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
