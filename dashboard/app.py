@@ -920,7 +920,6 @@ elif page == "Model Performance":
             "Accuracy":  "{:.4f}",
             "F1-Score":  "{:.4f}",
             "AUC-ROC":   "{:.4f}",
-            "Train Time (s)": "{:.2f}"
         })
     except Exception:
         # matplotlib isn't available in the runtime (Streamlit Cloud minimal env).
@@ -929,7 +928,6 @@ elif page == "Model Performance":
             "Accuracy":  "{:.4f}",
             "F1-Score":  "{:.4f}",
             "AUC-ROC":   "{:.4f}",
-            "Train Time (s)": "{:.2f}"
         })
 
     st.dataframe(styled_results, use_container_width=True)
