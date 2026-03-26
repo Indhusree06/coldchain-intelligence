@@ -9,7 +9,7 @@
 
 ## Overview
 
-Cold Chain Intelligence is an end-to-end machine learning system that monitors temperature-sensitive shipments — vaccines, pharmaceuticals, seafood, dairy, and frozen goods — across logistics networks. It combines real-time sensor data, predictive ML models, and a RAG-based AI analyst to help logistics teams proactively prevent spoilage and reduce losses.
+Cold Chain Intelligence is an end-to-end machine learning system that monitors temperature-sensitive shipments - vaccines, pharmaceuticals, seafood, dairy, and frozen goods - across logistics networks. It combines real-time sensor data, predictive ML models, and a RAG-based AI analyst to help logistics teams proactively prevent spoilage and reduce losses.
 
 ---
 
