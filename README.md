@@ -166,7 +166,7 @@ The dataset is synthetically generated to simulate realistic cold chain logistic
 ## Author
 
 **Indhusree Katlakanti**  
-Master of Science in Data Science — University of Nebraska at Omaha
+Master of Science in Data Science - University of Nebraska at Omaha
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/indhusree-katlakanti-a36481328/)
 [![GitHub](https://img.shields.io/badge/GitHub-Indhusree06-black)](https://github.com/Indhusree06)
