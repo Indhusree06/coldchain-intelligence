@@ -712,10 +712,16 @@ elif page == "AI Analyst":
     st.markdown("## AI Analyst")
     st.markdown("Ask questions about your cold chain data in plain English. The AI retrieves real data from the database and generates grounded answers.")
 
-    # Load OpenAI API key from .env file
-    from dotenv import load_dotenv
-    load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
-    openai_api_key = os.getenv("OPENAI_API_KEY")
+    # Load OpenAI API key — from Streamlit secrets (cloud) or .env (local)
+    openai_api_key = None
+    try:
+        openai_api_key = st.secrets["OPENAI_API_KEY"]
+    except Exception:
+        pass
+    if not openai_api_key:
+        from dotenv import load_dotenv
+        load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+        openai_api_key = os.getenv("OPENAI_API_KEY")
 
     if not openai_api_key:
         st.error("OpenAI API key not found. Please add OPENAI_API_KEY to your .env file.")
@@ -732,9 +738,11 @@ elif page == "AI Analyst":
         shipment_size_kg REAL, shipment_value_usd REAL,
         safe_temp_min REAL, safe_temp_max REAL,
         origin_city TEXT, destination_city TEXT, route_distance_km REAL,
-        carrier_name TEXT, vehicle_type TEXT, vehicle_number TEXT,
+        carrier_id TEXT, vehicle_type TEXT, vehicle_number TEXT,
         departure_time TEXT, expected_arrival TEXT, actual_arrival TEXT,
-        delay_hours REAL, spoilage_occurred INTEGER, weather_risk TEXT
+        delay_hours REAL, spoilage_occurred INTEGER, weather_risk TEXT,
+        origin_lat REAL, origin_lon REAL, dest_lat REAL, dest_lon REAL,
+        alt_route TEXT
 
     TABLE sensor_readings:
         reading_id TEXT, shipment_id TEXT, timestamp TEXT,
@@ -747,11 +755,20 @@ elif page == "AI Analyst":
     TABLE carriers:
         carrier_id TEXT, carrier_name TEXT, total_shipments INTEGER,
         spoilage_count INTEGER, on_time_rate REAL,
-        avg_temp_deviation REAL, reliability_score REAL, spoilage_rate REAL
+        avg_temp_deviation REAL, reliability_score REAL
 
     TABLE alerts:
         alert_id TEXT, shipment_id TEXT, timestamp TEXT,
         alert_type TEXT, severity TEXT, message TEXT, resolved INTEGER
+
+    TABLE risk_scores:
+        score_id TEXT, shipment_id TEXT, reading_id TEXT,
+        timestamp TEXT, risk_score REAL, risk_category TEXT
+
+    IMPORTANT JOIN RULES:
+    - shipments does NOT have carrier_name; JOIN carriers ON s.carrier_id = c.carrier_id to get c.carrier_name
+    - carriers does NOT have spoilage_rate; use spoilage_count or compute rate as ROUND(spoilage_count*100.0/total_shipments,1)
+    - Always alias tables: shipments as s, carriers as c, sensor_readings as sr
 
     Rules:
     - Always write valid SQLite SQL
