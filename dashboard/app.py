@@ -373,14 +373,14 @@ if page == "Live Monitor":
         return colors.get(str(val).lower(), "")
 
     styled = table_df.style.applymap(color_risk, subset=["Risk Level"])
-    st.dataframe(styled, use_container_width=True, height=400)
+    st.dataframe(styled, use_container_width='stretch', height=400)
 
     # ── ACTIVE ALERTS ─────────────────────
     st.markdown("### Active Alerts")
 
     if len(alerts_df) > 0:
         st.dataframe(alerts_df[["shipment_id", "alert_type", "severity", "message", "timestamp"]],
-                     use_container_width=True, height=200)
+                     use_container_width='stretch', height=200)
     else:
         st.info("No active alerts at this time.")
 # ─────────────────────────────────────────
@@ -471,7 +471,7 @@ elif page == "Shipment Detail":
                 yaxis_title="Temperature (C)"
             )
 
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width='stretch')
 
             # Door open events
             door_events = readings[readings["door_open_event"] == 1]
@@ -555,7 +555,7 @@ elif page == "Shipment Detail":
                     height=250,
                     margin=dict(l=20, r=20, t=30, b=10)
                 )
-                st.plotly_chart(gauge, use_container_width=True)
+                st.plotly_chart(gauge, use_container_width='stretch')
 
         except Exception as e:
             st.warning(f"Could not compute spoilage probability: {e}")
@@ -606,7 +606,7 @@ elif page == "Analytics":
         fig_prod.update_layout(template="plotly_dark", height=350,
                                margin=dict(l=20, r=20, t=40, b=20),
                                coloraxis_showscale=False)
-        st.plotly_chart(fig_prod, use_container_width=True)
+        st.plotly_chart(fig_prod, use_container_width='stretch')
 
     with col2:
         fig_vol = px.pie(
@@ -618,9 +618,9 @@ elif page == "Analytics":
         )
         fig_vol.update_layout(template="plotly_dark", height=350,
                               margin=dict(l=20, r=20, t=40, b=20))
-        st.plotly_chart(fig_vol, use_container_width=True)
+        st.plotly_chart(fig_vol, use_container_width='stretch')
 
-    st.dataframe(product_stats, use_container_width=True)
+    st.dataframe(product_stats, use_container_width='stretch')
 
     st.markdown("---")
 
@@ -659,9 +659,9 @@ elif page == "Analytics":
     )
     fig_carrier.update_layout(template="plotly_dark", height=400,
                               margin=dict(l=20, r=20, t=40, b=20))
-    st.plotly_chart(fig_carrier, use_container_width=True)
+    st.plotly_chart(fig_carrier, use_container_width='stretch')
 
-    st.dataframe(carrier_stats, use_container_width=True)
+    st.dataframe(carrier_stats, use_container_width='stretch')
 
     st.markdown("---")
 
@@ -693,7 +693,7 @@ elif page == "Analytics":
     )
     fig_route.update_layout(template="plotly_dark", height=400,
                             margin=dict(l=20, r=20, t=40, b=20))
-    st.plotly_chart(fig_route, use_container_width=True)
+    st.plotly_chart(fig_route, use_container_width='stretch')
 
     st.markdown("---")
 
@@ -735,7 +735,7 @@ elif page == "Analytics":
         yaxis2=dict(title="Total Shipments", overlaying="y", side="right"),
         legend=dict(orientation="h", yanchor="bottom", y=1.02)
     )
-    st.plotly_chart(fig_trend, use_container_width=True)
+    st.plotly_chart(fig_trend, use_container_width='stretch')
 # ─────────────────────────────────────────
 # PAGE: AI ANALYST
 # ─────────────────────────────────────────
@@ -897,7 +897,7 @@ elif page == "AI Analyst":
         with st.expander("View SQL query and raw data"):
             st.code(item["sql"], language="sql")
             if len(item["data"]) > 0:
-                st.dataframe(item["data"], use_container_width=True)
+                st.dataframe(item["data"], use_container_width='stretch')
 
         st.markdown("---")
 # ─────────────────────────────────────────
@@ -930,7 +930,7 @@ elif page == "Model Performance":
             "AUC-ROC":   "{:.4f}",
         })
 
-    st.dataframe(styled_results, use_container_width=True)
+    st.dataframe(styled_results, use_container_width='stretch')
 
     st.markdown("---")
 
@@ -962,7 +962,7 @@ elif page == "Model Performance":
         title="Model Performance Comparison — Accuracy, F1-Score, AUC-ROC"
     )
 
-    st.plotly_chart(fig_models, use_container_width=True)
+    st.plotly_chart(fig_models, use_container_width='stretch')
 
     st.markdown("---")
 
@@ -991,7 +991,7 @@ elif page == "Model Performance":
             margin=dict(l=20, r=20, t=40, b=20),
             coloraxis_showscale=False
         )
-        st.plotly_chart(fig_imp, use_container_width=True)
+        st.plotly_chart(fig_imp, use_container_width='stretch')
 
     except AttributeError:
         st.info("Feature importance is not available for this model type.")
