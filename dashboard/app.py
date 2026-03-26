@@ -911,15 +911,26 @@ elif page == "Model Performance":
     # ── MODEL COMPARISON TABLE ────────────
     st.markdown("### Model Comparison")
 
-    styled_results = model_results.style.background_gradient(
-        subset=["Accuracy", "F1-Score", "AUC-ROC"],
-        cmap="Greens"
-    ).format({
-        "Accuracy":  "{:.4f}",
-        "F1-Score":  "{:.4f}",
-        "AUC-ROC":   "{:.4f}",
-        "Train Time (s)": "{:.2f}"
-    })
+    try:
+        import matplotlib  # type: ignore
+        styled_results = model_results.style.background_gradient(
+            subset=["Accuracy", "F1-Score", "AUC-ROC"],
+            cmap="Greens"
+        ).format({
+            "Accuracy":  "{:.4f}",
+            "F1-Score":  "{:.4f}",
+            "AUC-ROC":   "{:.4f}",
+            "Train Time (s)": "{:.2f}"
+        })
+    except Exception:
+        # matplotlib isn't available in the runtime (Streamlit Cloud minimal env).
+        # Fall back to simple Styler formatting without background gradient.
+        styled_results = model_results.style.format({
+            "Accuracy":  "{:.4f}",
+            "F1-Score":  "{:.4f}",
+            "AUC-ROC":   "{:.4f}",
+            "Train Time (s)": "{:.2f}"
+        })
 
     st.dataframe(styled_results, use_container_width=True)
 
